@@ -61,7 +61,9 @@ function CenterControl(controlDiv, map) {
   controlUI.addEventListener('click', function() {
   map.setCenter(dublin);
   map.setZoom(12);
-  document.getElementById("coordinates").innerHTML = "Координаты точки: "+dublin['lat']+" "+dublin['lng'];});
+  document.getElementById("coordinates").innerHTML = "Координаты точки: "+dublin['lat']+" "+dublin['lng'];
+  document.getElementById("places").innerHTML = " ";
+  });
 }
 
 function initMap() {

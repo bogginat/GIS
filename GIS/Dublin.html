@@ -61,7 +61,7 @@ function CenterControl(controlDiv, map) {
   controlUI.addEventListener('click', function() {
   map.setCenter(dublin);
   map.setZoom(12);
-  document.getElementById("coordinates").innerHTML = "Координаты точки: "+dublin['lat']+" "+dublin['lng'];
+  document.getElementById("coordinates").innerHTML = "Координаты точки: ("+dublin['lat']+" "+dublin['lng']+")";
   document.getElementById("places").innerHTML = " ";
   });
 }
@@ -72,7 +72,7 @@ function initMap() {
     center: dublin
   });
 
-  document.getElementById("coordinates").innerHTML = "Координаты точки: "+dublin['lat']+" "+dublin['lng'];
+  document.getElementById("coordinates").innerHTML = "Координаты точки: ("+dublin['lat']+" "+dublin['lng']+")";
 
   var centerControlDiv = document.createElement('div');
   var centerControl = new CenterControl(centerControlDiv, map);
@@ -86,15 +86,15 @@ function initMap() {
   });
   }
 
-  function placeAndPanTo(latLng, map) {
-  map.setZoom(13);
+  function placeAndPanTo(latLng, map) { //центрирование в точке клика
+  map.setZoom(14);
   map.panTo(latLng);
   var cur_position = latLng;
   document.getElementById("coordinates").innerHTML = "Координаты точки:"+latLng;
 
    infowindow = new google.maps.InfoWindow();
 
-  var service = new google.maps.places.PlacesService(map);
+  var service = new google.maps.places.PlacesService(map); //выбираем нужные достопримечательности
   service.nearbySearch({
     location: latLng,
     radius: 1000,
@@ -103,7 +103,7 @@ function initMap() {
   }, callback);
   }
 
-  function callback(results, status) {
+  function callback(results, status) { //вывод нужных достопримечательностей
   document.getElementById("places").innerHTML = "Достопримечательности: "+"<br \/>";
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {

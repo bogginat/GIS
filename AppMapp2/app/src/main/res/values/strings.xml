@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AppMapp</string>
+    <string name="title_activity_maps">AppMapp</string>
+    <string name="frag_map">Map</string>
+    <string name="frag_quiz">Quiz</string>
+    <string name="remove">Remove</string>
+    <string name="replace">Replace</string>
+    <string name="add">Add</string>
+    <string name="stack">add to BS</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -1,0 +1,48 @@
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="natalybogdanova.appmapp.MapsActivity">
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="right|top"
+    android:text="Основной Вид"
+    android:padding="10dp"
+    android:id="@+id/button"
+    android:background="@color/colorAccent"
+    android:layout_marginTop="20dp"
+    android:paddingRight="10dp"
+    android:clickable="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:text="Начать"
+        android:padding="10dp"
+        android:id="@+id/button1"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent"
+        android:paddingRight="10dp"
+        android:clickable="true"
+        android:visibility="invisible"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:text="Выйти"
+        android:padding="10dp"
+        android:id="@+id/button_sign_out"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent"
+        android:paddingRight="10dp"
+        android:clickable="true"
+        android:visibility="visible"/>
+
+
+</fragment>

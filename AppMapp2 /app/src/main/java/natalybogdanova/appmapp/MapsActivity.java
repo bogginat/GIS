@@ -29,22 +29,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     final String LOG_TAG = "myLogs";
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
-    private final LatLng dublin = new LatLng(53.34, -6.26);
-    private final LatLng top_mid = new LatLng(53.40, -6.26);
-    private final LatLng top_right = new LatLng(53.40, -6.34);
-    private final LatLng top_left = new LatLng(53.40, -6.18);
-    private final LatLng bot_mid = new LatLng(53.28, -6.26);
-    private final LatLng bot_right = new LatLng(53.28, -6.34);
-    private final LatLng bot_left = new LatLng(53.28, -6.18);
-    private final LatLng mid_right = new LatLng(53.34, -6.34);
-    private final LatLng mid_left = new LatLng(53.34, -6.18);
-    private final LatLngBounds main_position = new LatLngBounds(bot_right, top_left);
+    LatLng all[];
+    LatLng dublin;
+    LatLng top_mid;
+    LatLng top_right;
+    LatLng top_left;
+    LatLng bot_mid;
+    LatLng bot_right;
+    LatLng bot_left;
+    LatLng mid_right;
+    LatLng mid_left;
+    LatLngBounds main_position;
     private int flag_area = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        all = ((AppController)getApplication()).getLatLng();
+        dublin = all[0];
+        top_mid = all[1];
+        top_right = all[2];
+        top_left = all[3];
+        bot_mid = all[4];
+        bot_right = all[5];
+        bot_left = all[6];
+        mid_right = all[7];
+        mid_left = all[8];
+        main_position = new LatLngBounds(bot_right, top_left);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -63,11 +76,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
+        all = ((AppController)getApplication()).getLatLng();
+        dublin = all[0];
+        top_mid = all[1];
+        top_right = all[2];
+        top_left = all[3];
+        bot_mid = all[4];
+        bot_right = all[5];
+        bot_left = all[6];
+        mid_right = all[7];
+        mid_left = all[8];
+        main_position = new LatLngBounds(bot_right, top_left);
+
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
                 mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(main_position, 30));
-                mMap.addMarker(new MarkerOptions().position(dublin).title("Marker in Dublin"));
+                mMap.addMarker(new MarkerOptions().position(dublin).title("Центр города"));
             }
         });
 
@@ -105,18 +130,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.setOnPolygonClickListener(new GoogleMap.OnPolygonClickListener() {
             public void onPolygonClick(Polygon polygon) {
+                AppController app = ((AppController) getApplicationContext());
                 LatLngBounds area = main_position;
                 if (polygon.hashCode() == polygon_br.hashCode()) {
                     area = new LatLngBounds(bot_right, dublin);
+                    app.setPoly(dublin, mid_right, bot_right, bot_mid);
+                    app.setArea(bot_right, dublin);
                     flag_area = 1;
                 } else if (polygon.hashCode() == polygon_bl.hashCode()) {
                     area = new LatLngBounds(bot_mid, mid_left);
+                    app.setPoly(mid_left, dublin, bot_mid, bot_left);
+                    app.setArea(bot_mid, mid_left);
                     flag_area = 2;
                 } else if (polygon.hashCode() == polygon_tr.hashCode()) {
                     area = new LatLngBounds(mid_right, top_mid);
+                    app.setPoly(top_mid, top_right, mid_right, dublin);
+                    app.setArea(mid_right, top_mid);
                     flag_area = 3;
                 } else if (polygon.hashCode() == polygon_tl.hashCode()) {
                     area = new LatLngBounds(dublin, top_left);
+                    app.setPoly(top_left, top_mid, dublin, mid_left);
+                    app.setArea(dublin, top_left);
                     flag_area = 4;
                 }
                 mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(area, 0));
@@ -158,7 +192,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch (v.getId()) {
             case R.id.button1:
                 Intent intent = new Intent(this, MapsActivity.class);
-                if (flag_area == 4) {
+                if (flag_area >= 0) {
                     intent = new Intent(this, NE.class);
                 }
                 startActivity(intent);

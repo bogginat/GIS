@@ -42,11 +42,23 @@
             android:visibility="visible"
             android:text="Назад"
             android:background="@color/colorAccent"></Button>
-        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+    </LinearLayout>
+
     <FrameLayout
         android:id="@+id/frgmCont1"
         android:layout_width="match_parent"
         android:layout_height="79dp">
+
     </FrameLayout>
 <FrameLayout
         android:id="@+id/frgmCont"

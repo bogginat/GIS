@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AppMapp</string>
     <string name="title_activity_maps">AppMapp</string>
@@ -8,4 +9,10 @@
     <string name="add">Add</string>
     <string name="stack">add to BS</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="city_array">
+        <item>Дублин</item>
+        <item>Москва</item>
+        <item>Ташкент</item>
+        <item>Цюрих</item>
+    </string-array>
 </resources>

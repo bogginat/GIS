@@ -24,18 +24,6 @@ import com.google.android.gms.maps.model.PolygonOptions;
 public class AnswerMapFragment extends Fragment implements View.OnClickListener {
     GoogleMap mMap;
     MapView mMapView;
-    private final LatLng dublin = new LatLng(53.34, -6.26);
-    private final LatLng top_mid = new LatLng(53.40, -6.26);
-    private final LatLng top_right = new LatLng(53.40, -6.34);
-    private final LatLng top_left = new LatLng(53.40, -6.18);
-    private final LatLng bot_mid = new LatLng(53.28, -6.26);
-    private final LatLng bot_right = new LatLng(53.28, -6.34);
-    private final LatLng bot_left = new LatLng(53.28, -6.18);
-    private final LatLng mid_right = new LatLng(53.34, -6.34);
-    private final LatLng mid_left = new LatLng(53.34, -6.18);
-    private final LatLngBounds main_position = new LatLngBounds(bot_right, top_left);
-    private int flag_area = 0;
-
     Listener my_case = (Listener) getActivity();
 
     String srt = "";
@@ -77,9 +65,6 @@ public class AnswerMapFragment extends Fragment implements View.OnClickListener 
                 mMap = Map;
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(answer));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(answer, 14));
-                final Polygon polygon_tl = mMap.addPolygon(new PolygonOptions()
-                        .add(top_left, top_mid, dublin, mid_left)
-                        .strokeColor(0x4000FF00));
                 final Marker my_mark = mMap.addMarker(new MarkerOptions()
                         .position(answer)
                         .title("Правильный ответ")

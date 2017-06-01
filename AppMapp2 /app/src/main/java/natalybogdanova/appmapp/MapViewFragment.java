@@ -40,22 +40,16 @@ public class MapViewFragment extends Fragment implements View.OnClickListener{
     TextView myTextView;
     GoogleMap mMap;
     MapView mMapView;
-    private final LatLng dublin = new LatLng(53.34, -6.26);
-    private final LatLng top_mid = new LatLng(53.40, -6.26);
-    private final LatLng top_right = new LatLng(53.40, -6.34);
-    private final LatLng top_left = new LatLng(53.40, -6.18);
-    private final LatLng bot_mid = new LatLng(53.28, -6.26);
-    private final LatLng bot_right = new LatLng(53.28, -6.34);
-    private final LatLng bot_left = new LatLng(53.28, -6.18);
-    private final LatLng mid_right = new LatLng(53.34, -6.34);
-    private final LatLng mid_left = new LatLng(53.34, -6.18);
-    private final LatLngBounds main_position = new LatLngBounds(bot_right, top_left);
-    private int flag_area = 0;
+    String str = "";
+    LatLng dublin = new LatLng(53.34, -6.26);
+    LatLng top_mid = new LatLng(53.40, -6.26);
+    LatLng top_left = new LatLng(53.40, -6.18);
+    LatLng mid_left = new LatLng(53.34, -6.18);
 
     Listener mListener = (Listener) getActivity();
 
     public interface Listener {
-        public void onSelected(String s);
+        void onSelected(String s);
     }
 
     @Override
@@ -69,12 +63,22 @@ public class MapViewFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
-
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
+        str = this.getArguments().getString("URL");
+        String[] lat = str.split("=");
+        top_left = new LatLng(Double.parseDouble(lat[0]), Double.parseDouble(lat[1]));
+        top_mid = new LatLng(Double.parseDouble(lat[2]), Double.parseDouble(lat[3]));
+        dublin = new LatLng(Double.parseDouble(lat[4]), Double.parseDouble(lat[5]));
+        mid_left = new LatLng(Double.parseDouble(lat[6]), Double.parseDouble(lat[7]));
         mListener = (Listener) getActivity();
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -102,6 +106,13 @@ public class MapViewFragment extends Fragment implements View.OnClickListener{
         return rootView;
     }
 
+    public static MapViewFragment newInstance(String url){
+        MapViewFragment fragment = new MapViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("URL", url);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public void onDetach() {
